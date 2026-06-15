@@ -9,15 +9,15 @@ cd /home/marek/Downloads <br />
 unzip youtube-39-arr-apps-1-click <br />
 
 ### Installation process:
-Make sure you are in the same folder as docker-compose.yml and .env file, then 'up' to deploy, 'stop' and 'rm' to stop and remove the stack  :<br />
+Make sure you are in the same folder as docker compose.yml and .env file, then 'up' to deploy, 'stop' and 'rm' to stop and remove the stack  :<br />
 
 ```bash
-sudo docker-compose up -d 
-sudo docker-compose stop
-sudo docker-compose rm 
+sudo docker compose up -d
+sudo docker compose stop
+sudo docker compose rm
 ```
 
-Chage ownership of the folder specified in .env file (by default its /media/Arr) and 
+Chage ownership of the folder specified in .env file (by default its /media/Arr) and
 run 'chown' command with the user id and group id configured in that .env file:<br />
 `chown -R 1000:1000 /media/Arr`<br />
 Now you can log on and work with all services.<br />
@@ -40,7 +40,7 @@ Then configure Prowlarr service (each of these services will require to set up u
 **Prowlarr:**<br />
 http://localhost:9696<br />
 Go to Settings - Download Clients - `+` symbol - Add download client - choose qBittorrent (unless you decided touse different download client)<br />
-Put the port id matching the WebUI in docker-compose for qBittorrent (default is 8080) and username and password that you configured for qBittorrent in previous step<br />
+Put the port id matching the WebUI in docker compose for qBittorrent (default is 8080) and username and password that you configured for qBittorrent in previous step<br />
 Host - you might want to change from 'localhost'to ip address of the host machine (run 'ip address' command on your host system)<br />
 or to 'qbittorrent' - click little 'Test' button at the bottom before saving to make sure you get a green 'tick'.<br />
 
@@ -80,9 +80,9 @@ Arr stack completed - you can now 'add movie' in radarr or 'add series' in sonar
 
 **Jellyfin:**<br />
 http://localhost:8096<br />
-If you run `docker-compose up` and have something running on port 1900 -  its most possibly rygel service, run:<br />
-`sudo apt-get remove rygel` and run the `sudo docker-compose up -d` again.<br />
-Then add media library in Jellyfin  matching folders configured in docker-compose.yml file, so in Jellyfin you should see them as: <br />
+If you run `docker compose up` and have something running on port 1900 -  its most possibly rygel service, run:<br />
+`sudo apt-get remove rygel` and run the `sudo docker compose up -d` again.<br />
+Then add media library in Jellyfin  matching folders configured in docker compose.yml file, so in Jellyfin you should see them as: <br />
 /data/Movies <br />
 /data/TVShows <br />
 /data/Music <br />
@@ -98,4 +98,3 @@ If the volume configuration looks like that: <br />
       - ${ARRPATH}Readarr/books:/data/Books
 ```
 then on the container you match that right side from the colon ( /data/Movies, /data/TVShows etc )<br />
-

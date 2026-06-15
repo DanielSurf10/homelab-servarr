@@ -1,110 +1,125 @@
-services:       
+networks:
+  servarr:
+    driver: bridge
 
-# ██████╗ ██████╗  ██████╗ ██╗    ██╗██╗      █████╗ ██████╗ ██████╗ 
+services:
+
+# ██████╗ ██████╗  ██████╗ ██╗    ██╗██╗      █████╗ ██████╗ ██████╗
 # ██╔══██╗██╔══██╗██╔═══██╗██║    ██║██║     ██╔══██╗██╔══██╗██╔══██╗
 # ██████╔╝██████╔╝██║   ██║██║ █╗ ██║██║     ███████║██████╔╝██████╔╝
 # ██╔═══╝ ██╔══██╗██║   ██║██║███╗██║██║     ██╔══██║██╔══██╗██╔══██╗
 # ██║     ██║  ██║╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║██║  ██║
-# ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═
-                              
+# ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+
   prowlarr:
     image: linuxserver/prowlarr:latest
     container_name: prowlarr
     hostname: prowlarr
     volumes:
-      - ${ARRPATH}Prowlarr/config:/config
-      - ${ARRPATH}Prowlarr/backup:/data/Backup
-      - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}/Prowlarr/config:/config
+      - ${ARRPATH}/Prowlarr/backup:/data/Backup
+      - ${ARRPATH}/Downloads:/downloads
     ports:
       - 9696:9696
     restart: unless-stopped
     env_file:
       - '.env'
-      
-# ███████╗ ██████╗ ███╗   ██╗ █████╗ ██████╗ ██████╗ 
+    networks:
+      - servarr
+
+# ███████╗ ██████╗ ███╗   ██╗ █████╗ ██████╗ ██████╗
 # ██╔════╝██╔═══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
 # ███████╗██║   ██║██╔██╗ ██║███████║██████╔╝██████╔╝
 # ╚════██║██║   ██║██║╚██╗██║██╔══██║██╔══██╗██╔══██╗
 # ███████║╚██████╔╝██║ ╚████║██║  ██║██║  ██║██║  ██║
-# ╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝                                                 
-      
+# ╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+
   sonarr:
     image: linuxserver/sonarr:latest
     container_name: sonarr
     hostname: sonarr
     volumes:
-      - ${ARRPATH}Sonarr/config:/config
-      - ${ARRPATH}Sonarr/backup:/data/Backup
-      - ${ARRPATH}Sonarr/tvshows:/data/tvshows
-      - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}/Sonarr/config:/config
+      - ${ARRPATH}/Sonarr/backup:/data/Backup
+      - ${ARRPATH}/Sonarr/tvshows:/data/tvshows
+      - ${ARRPATH}/Downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
     env_file:
       - '.env'
-      
-# ██████╗  █████╗ ██████╗  █████╗ ██████╗ ██████╗ 
+    networks:
+      - servarr
+
+# ██████╗  █████╗ ██████╗  █████╗ ██████╗ ██████╗
 # ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗
 # ██████╔╝███████║██║  ██║███████║██████╔╝██████╔╝
 # ██╔══██╗██╔══██║██║  ██║██╔══██║██╔══██╗██╔══██╗
 # ██║  ██║██║  ██║██████╔╝██║  ██║██║  ██║██║  ██║
-# ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝                                              
+# ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
 
   radarr:
     image: linuxserver/radarr:latest
     container_name: radarr
     hostname: radarr
     volumes:
-      - ${ARRPATH}Radarr/config:/config
-      - ${ARRPATH}Radarr/movies:/data/movies
-      - ${ARRPATH}Radarr/backup:/data/Backup
-      - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}/Radarr/config:/config
+      - ${ARRPATH}/Radarr/backup:/data/Backup
+      - ${ARRPATH}/Radarr/movies:/data/movies
+      - ${ARRPATH}/Downloads:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
     env_file:
       - '.env'
-      
-# ██╗     ██╗██████╗  █████╗ ██████╗ ██████╗ 
+    networks:
+      - servarr
+
+# ██╗     ██╗██████╗  █████╗ ██████╗ ██████╗
 # ██║     ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗
 # ██║     ██║██║  ██║███████║██████╔╝██████╔╝
 # ██║     ██║██║  ██║██╔══██║██╔══██╗██╔══██╗
 # ███████╗██║██████╔╝██║  ██║██║  ██║██║  ██║
 # ╚══════╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-                                             
+
   lidarr:
     image: linuxserver/lidarr:latest
     container_name: lidarr
     hostname: lidarr
     volumes:
-      - ${ARRPATH}Lidarr/config:/config
-      - ${ARRPATH}Lidarr/music:/data/musicfolder
-      - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}/Lidarr/config:/config
+      - ${ARRPATH}/Lidarr/backup:/backup
+      - ${ARRPATH}/Lidarr/music:/data/musicfolder
+      - ${ARRPATH}/Downloads:/downloads
     ports:
       - 8686:8686
     restart: unless-stopped
     env_file:
       - '.env'
-      
-# ██╗  ██╗ ██████╗ ███╗   ███╗ █████╗ ██████╗ ██████╗ 
+    networks:
+      - servarr
+
+# ██╗  ██╗ ██████╗ ███╗   ███╗ █████╗ ██████╗ ██████╗
 # ██║  ██║██╔═══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗
 # ███████║██║   ██║██╔████╔██║███████║██████╔╝██████╔╝
 # ██╔══██║██║   ██║██║╚██╔╝██║██╔══██║██╔══██╗██╔══██╗
 # ██║  ██║╚██████╔╝██║ ╚═╝ ██║██║  ██║██║  ██║██║  ██║
 # ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-        
+
   homarr:
     container_name: homarr
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
     volumes:
-      - ${ARRPATH}Homarr/configs:/app/data/configs
-      - ${ARRPATH}Homarr/icons:/app/public/icons
-      - ${ARRPATH}Homarr/data:/data
+      - ${ARRPATH}/Homarr/configs:/app/data/configs
+      - ${ARRPATH}/Homarr/icons:/app/public/icons
+      - ${ARRPATH}/Homarr/data:/data
     ports:
       - '7575:7575'
     env_file:
       - '.env'
+    networks:
+      - servarr
 
 #      ██╗███████╗██╗     ██╗  ██╗   ██╗███████╗██╗███╗   ██╗
 #      ██║██╔════╝██║     ██║  ╚██╗ ██╔╝██╔════╝██║████╗  ██║
@@ -112,30 +127,44 @@ services:
 # ██   ██║██╔══╝  ██║     ██║    ╚██╔╝  ██╔══╝  ██║██║╚██╗██║
 # ╚█████╔╝███████╗███████╗███████╗██║   ██║     ██║██║ ╚████║
 #  ╚════╝ ╚══════╝╚══════╝╚══════╝╚═╝   ╚═╝     ╚═╝╚═╝  ╚═══╝
-     
+
   jellyfin:
     image: linuxserver/jellyfin
     container_name: jellyfin
     ports:
       - '8096:8096/tcp'   # Jellyfin web interface
       - '7359:7359/udp'   # Network discovery
-      - '1900:1900/udp'   # DLNA port
+      # - '1900:1900/udp'   # DLNA port (comentado devido a conflito com rygel)
     volumes:
-      - ${ARRPATH}Jellyfin/config:/config
-      - ${ARRPATH}Radarr/movies:/data/Movies
-      - ${ARRPATH}Sonarr/tvshows:/data/TVShows
-      - ${ARRPATH}Lidarr/music:/data/Music
+      - ${ARRPATH}/Jellyfin/config:/config
+      - ${ARRPATH}/Radarr/movies:/data/Movies
+      - ${ARRPATH}/Sonarr/tvshows:/data/TVShows
+      - ${ARRPATH}/Lidarr/music:/data/Music
+      - ${COURSES_PATH}:/courses
     env_file:
       - '.env'
+    # runtime: nvidia
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    # environment:
+    #   - NVIDIA_DRIVER_CAPABILITIES=all
+    #   - NVIDIA_VISIBLE_DEVICES=all
     restart: unless-stopped
-          
+    networks:
+      - servarr
+
 #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
 # ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
-# ██║   ██║██████╔╝██║   ██║      ██║   ██║   ██║██████╔╝██████╔╝█████╗  ██╔██╗ ██║   ██║   
-# ██║▄▄ ██║██╔══██╗██║   ██║      ██║   ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║╚██╗██║   ██║   
-# ╚██████╔╝██████╔╝██║   ██║      ██║   ╚██████╔╝██║  ██║██║  ██║███████╗██║ ╚████║   ██║   
-#  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝                                                                                          
-                                                                                             
+# ██║   ██║██████╔╝██║   ██║      ██║   ██║   ██║██████╔╝██████╔╝█████╗  ██╔██╗ ██║   ██║
+# ██║▄▄ ██║██╔══██╗██║   ██║      ██║   ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║╚██╗██║   ██║
+# ╚██████╔╝██████╔╝██║   ██║      ██║   ╚██████╔╝██║  ██║██║  ██║███████╗██║ ╚████║   ██║
+#  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝
+
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -144,17 +173,95 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
     volumes:
-      - ${ARRPATH}qbittorrent/config:/config
-      - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}/qbittorrent/config:/config
+      - ${ARRPATH}/Downloads:/downloads
     ports:
       - 8080:8080
-      - 6881:6881
-      - 6881:6881/udp
+      - 52422:52422
+      - 52422:52422/udp
     environment:
       - WEBUI_PORT=8080
-      - TORRENTING_PORT=6881
+      - TORRENTING_PORT=52422
     healthcheck:
       start_period: 15s
     env_file:
       - '.env'
+    networks:
+      - servarr
 
+
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
+      - TZ=America/Sao_Paulo
+    ports:
+      - "8191:8191"
+    restart: unless-stopped
+    networks:
+      - servarr
+
+
+  suwayomi:
+    image: ghcr.io/suwayomi/suwayomi-server:preview
+    container_name: suwayomi
+    # user: 1000:1000
+    environment:
+      - TZ=America/Sao_Paulo
+      - FLARESOLVERR_ENABLED=true
+      - FLARESOLVERR_URL=http://flaresolverr:8191
+      - FLARESOLVERR_RESPONSE_AS_FALLBACK=true
+    env_file:
+      - '.env'
+    volumes:
+      - /mnt/0078C28478C27844/Users/danie/suwayomi:/home/suwayomi/.local/share/Tachidesk
+    ports:
+      - "4567:4567"
+    networks:
+      - servarr
+    restart: unless-stopped
+
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - ${ARRPATH}/Redis/data:/data
+    networks:
+      - servarr
+
+
+  dfindexer:
+    image: ghcr.io/dflexy/dfindexer:latest
+    container_name: dfindexer
+    restart: unless-stopped
+    ports:
+      - "7006:7006"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - FLARESOLVERR_ADDRESS=http://flaresolverr:8191
+      - PORT=7006
+      - LOG_LEVEL=1
+      - LOG_FORMAT=console
+    depends_on:
+      - redis
+      - flaresolverr
+    networks:
+      - servarr
+
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - DOCKER_API_VERSION=1.40
+    restart: unless-stopped
